@@ -1,15 +1,18 @@
 package com.paymybuddy.login.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.support.CrudMethodMetadata;
+
+import com.paymybuddy.login.model.UserAccount;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-/*
+
+import java.util.Optional;
+
 @Repository
 //public interface UserAccount extends JpaRepository
 
-public interface UserAccount extends CrudRepository {
+public interface UserAccountRepository extends CrudRepository<UserAccount, Integer> {
 
+    Optional<UserAccount> findByEmail(String email);
 }
-*/
+
 

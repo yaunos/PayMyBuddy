@@ -17,6 +17,8 @@ public class BuddyContactId implements Serializable {
     @Column(name = "user_email")
     private String user_email;
 
+
+    // getters, equals() and hashcode() methods
     public String getBuddy_email() {
         return buddy_email;
     }
@@ -33,6 +35,7 @@ public class BuddyContactId implements Serializable {
         this.user_email = user_email;
     }
 
+    // equals() method
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -41,6 +44,8 @@ public class BuddyContactId implements Serializable {
         return Objects.equals(buddy_email, that.buddy_email) && Objects.equals(user_email, that.user_email);
     }
 
+
+    // hashCode() method
     @Override
     public int hashCode() {
         return Objects.hash(buddy_email, user_email);
