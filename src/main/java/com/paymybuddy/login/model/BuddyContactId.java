@@ -10,13 +10,24 @@ import java.util.Objects;
 public class BuddyContactId implements Serializable {
 
     //@Id
-    @Column(name = "buddy_email")
+    //@Column(name = "buddy_email")
     private String buddy_email;
 
     //@Id
-    @Column(name = "user_email")
+    //@Column(name = "user_email")
     private String user_email;
 
+    // default constructor
+
+
+    public BuddyContactId(String buddy_email, String user_email) {
+        this.buddy_email = buddy_email;
+        this.user_email = user_email;
+    }
+
+    public BuddyContactId() {
+
+    }
 
     // getters, equals() and hashcode() methods
     public String getBuddy_email() {

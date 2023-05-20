@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 //public interface UserAccount extends JpaRepository
 
-public interface UserAccountRepository extends CrudRepository<UserAccount, Integer> {
+public interface UserAccountRepository extends CrudRepository<UserAccount, String> {
 
     Optional<UserAccount> findByEmail(String email);
 }

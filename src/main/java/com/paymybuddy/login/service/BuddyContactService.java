@@ -9,7 +9,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-@Service public class BuddyContactService {
+@Service
+public class BuddyContactService {
 
     @Autowired
     private BuddyContactRepository buddyContactRepository;

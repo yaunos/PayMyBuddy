@@ -18,7 +18,7 @@ public class BuddyContact implements Serializable {
     // constructors, getters and setters
 
     // constructor
-   public BuddyContact(BuddyContactId buddyContactId) {
+    public BuddyContact(BuddyContactId buddyContactId) {
        this.buddyContactId = buddyContactId;
    }
 
