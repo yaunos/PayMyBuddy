@@ -15,7 +15,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 public class LoginController {
-    /*
+
     @Autowired
     private BuddyContactService buddyContactService;
 
@@ -24,14 +24,12 @@ public class LoginController {
 
     @Autowired
     private UserAccountService userAccountService;
-    */
-
 
     @Autowired
     private UserAccountRepository userAccountRepository;
 
-    //@Autowired
-    //private BuddyContactRepository buddyContactRepository;
+    @Autowired
+    private BuddyContactRepository buddyContactRepository;
 
     @RequestMapping(value = {"/", "/home "}, method = RequestMethod.GET)
     public String home(Model model) {
