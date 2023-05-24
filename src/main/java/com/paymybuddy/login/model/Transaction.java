@@ -1,5 +1,6 @@
 package com.paymybuddy.login.model;
 
+
 import lombok.Data;
 
 import javax.persistence.*;

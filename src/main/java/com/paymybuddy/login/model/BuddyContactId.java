@@ -1,12 +1,11 @@
 package com.paymybuddy.login.model;
 
-import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Objects;
 
-@Embeddable // Dans la classe de représentation
+@Embeddable
+// Dans la classe de représentation
 public class BuddyContactId implements Serializable {
 
     //@Id

@@ -3,7 +3,9 @@ package com.paymybuddy.login.model;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serializable;
 
 @Data
