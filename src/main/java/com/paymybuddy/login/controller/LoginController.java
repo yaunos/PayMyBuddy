@@ -1,11 +1,7 @@
 package com.paymybuddy.login.controller;
 
 import com.paymybuddy.login.model.UserAccount;
-import com.paymybuddy.login.repository.BuddyContactRepository;
 import com.paymybuddy.login.repository.UserAccountRepository;
-import com.paymybuddy.login.service.BuddyContactService;
-import com.paymybuddy.login.service.TransactionService;
-import com.paymybuddy.login.service.UserAccountService;
 import com.paymybuddy.login.utils.PasswordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,6 +34,7 @@ public class LoginController {
         return "home";
     }
 
+
     @GetMapping("/login")
     public String showLoginForm()
     {
@@ -56,7 +53,7 @@ public class LoginController {
         else
         {
 
-            return new RedirectView("loginFailed.html");
+            return new RedirectView("loginFail.html");
         }
     }
 

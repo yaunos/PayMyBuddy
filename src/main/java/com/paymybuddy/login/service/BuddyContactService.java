@@ -19,7 +19,8 @@ public class BuddyContactService {
         return buddyContactRepository.findAll();
     }
 
-    public Optional<BuddyContactId> getBuddyContactsById(Integer id) {
+    //public Optional<BuddyContactId> getBuddyContactsById(Integer id) {
+    public Optional<BuddyContact> getBuddyContactsById(BuddyContactId id) {
         return buddyContactRepository.findById(id);
     }
 }
