@@ -38,7 +38,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
                 //.antMatchers("/admin").hasRole("ADMIN")
                 //.antMatchers("/user").hasRole("USER")
-                .antMatchers("/login.html", "loginSuccess.html", "/loginFail.html").permitAll()
+                .antMatchers("/login.html", "/loginSuccess.html", "/loginFail.html", "/login").permitAll()
 
                 //toutes les autres requêtes ... puis suivi de authenticated -> toutes les requêtes doivent être authentifiées par le login form
                 .anyRequest().authenticated()
@@ -77,21 +77,24 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
         auth.userDetailsService(username -> (UserDetails) userAccountDetailsService);
 
-        /*
 
+/*
         auth.inMemoryAuthentication()
                 .withUser("springuser").password(passwordEncoder().encode("spring123").roles("USER"))
                 .and()
                 .withUser("springadmin").password(passwordEncoder().encode("admin123").roles("ADMIN", "USER"));
+*/
 
-         */
     }
+
     /*
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BcryptPasswordEncoder();
     }
-    */
+
+     */
+
 
     }
 
