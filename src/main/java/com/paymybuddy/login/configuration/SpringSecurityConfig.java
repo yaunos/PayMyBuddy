@@ -46,11 +46,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 /*
                 .and()
                 // formulaire OAuth2 par défaut ? Où est-il dans le projet ?
-                .formLogin();
+                .formLogin()
                 */
 
 
-                /*
             .and()
             .oauth2Login()
                 .loginPage("/login.html")
@@ -58,7 +57,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureUrl("/loginFail.html")
                 .permitAll()
 
-                 */
 
             .and()
             .logout()

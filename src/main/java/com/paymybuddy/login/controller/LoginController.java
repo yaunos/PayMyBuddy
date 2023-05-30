@@ -1,15 +1,19 @@
 package com.paymybuddy.login.controller;
 
+import com.paymybuddy.login.model.Transaction;
 import com.paymybuddy.login.model.UserAccount;
 import com.paymybuddy.login.repository.UserAccountRepository;
 import com.paymybuddy.login.utils.PasswordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
-@Controller
+import java.util.List;
+
+@RestController
 public class LoginController {
     /*
     @Autowired
@@ -56,5 +60,47 @@ public class LoginController {
             return new RedirectView("loginFail.html");
         }
     }
+
+    @GetMapping(value = {"/transfer"})
+    public String transfer(Model model) {
+
+        ///On récupère les infos de la personne connectée
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserAccountEmail = authentication.getName();
+
+        // On liste les BuddyContact du UserAccount
+
+        //On affiche les transactions effectuées avec les BuddyContact
+
+        List<Transaction> transactions;
+
+        return "home";
+
+    }
+
+    @PostMapping(value = { "/transfer"})
+    public String newTransaction(Model model) {
+
+        //On récupère les infos de la personne connectée
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserAccountEmail = authentication.getName();
+
+        // On récupère les informations du formulaire de paiement
+
+        //On fait une transaction entre les 2 comptes
+
+        return "home";
+    }
+
+    /*
+    @RequestMapping("/*")
+    public String getGithub() {
+        return "Welcome, Github User";
+    }
+    */
+
+
 
 }
