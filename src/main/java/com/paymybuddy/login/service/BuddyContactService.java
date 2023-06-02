@@ -15,6 +15,10 @@ public class BuddyContactService {
     @Autowired
     private BuddyContactRepository buddyContactRepository;
 
+    public Iterable<BuddyContact> getContacts() {
+        return buddyContactRepository.findAll();
+    }
+
     public Iterable<BuddyContact> getBuddyContacts() {
         return buddyContactRepository.findAll();
     }

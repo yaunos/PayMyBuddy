@@ -13,8 +13,9 @@ public class UserAccountService {
     @Autowired
     private UserAccountRepository userAccountRepository;
 
-    public Iterable<UserAccount> getUsers() {
+    public Iterable<UserAccount> getUserAccounts() {
         return userAccountRepository.findAll();
+
     }
 
     public Optional<UserAccount> getUserAccountByEmail(String email) {
