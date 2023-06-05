@@ -19,10 +19,10 @@ public class Transaction {
     //@ManyToOne(cascade = CascadeType.MERGE)
     //@JoinColumn(name = "user_email")
 
-    @Column(name = "from")
+    @Column(name = "from_email")
     private String userEmail;
 
-    @Column(name = "to")
+    @Column(name = "to_email")
     private String buddyEmail;
 
     @Column(name = "date")

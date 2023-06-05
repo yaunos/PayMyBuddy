@@ -20,6 +20,20 @@ public class TransactionService {
     public Optional<Transaction> getTransactionsByTransactionNumber(Long transaction_number) {
         return transactionRepository.findById(Math.toIntExact(transaction_number));
     }
-
+    /**
+     * @param email
+     * Get history of the transactions for a certain user
+     */
+    /*
+    public Optional<Transaction> getTransactionsByEmail(String email) {
+        return transactionRepository.findById(toString(email));
+    }
+*/
+    /**
+     *
+     */
+    public Transaction addTransaction(Transaction transaction) {
+        return transactionRepository.save(transaction);
+    }
 
 }
