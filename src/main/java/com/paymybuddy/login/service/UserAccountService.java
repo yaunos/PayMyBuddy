@@ -23,5 +23,12 @@ public class UserAccountService {
 
     }
 
+    /**
+     *  Add, modify (delete ?) User Accounts
+     */
+    public UserAccount addUserAccount(UserAccount userAccount) {
+        return userAccountRepository.save(userAccount);
+    }
+
 
 }

@@ -12,6 +12,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import javax.transaction.Transactional;
+import java.util.Date;
+
+import static com.paymybuddy.login.constants.Constants.FeeRateForEachTransaction;
 
 
 @SpringBootApplication
@@ -40,16 +43,18 @@ public class SecureWebAuthApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 
 		Iterable<UserAccount> accounts = userAccountService.getUserAccounts();
+		System.out.println("*** Liste des utilisateurs ***");
 		accounts.forEach(account -> System.out.println(account.getEmail()));
 
-
+		System.out.println("*** Liste des descriptions ***");
 		Iterable<Transaction> transactions = transactionService.getTransactions();
 		transactions.forEach(transaction -> System.out.println(transaction.getDescription()));
 
-
+		System.out.println("*** Liste des contacts ***");
 		Iterable<BuddyContact> buddies = buddyContactService.getBuddyContacts();
 		buddies.forEach(buddyContact -> System.out.println(buddyContact.getBuddyContactId().getBuddy_email()));
 
+		System.out.println("*** Fin ***");
 		/**
 		 *
 		 * @Param email
@@ -61,11 +66,14 @@ public class SecureWebAuthApplication implements CommandLineRunner {
 				transaction -> System.out.println(transaction.getDescription()));
 
 		Transaction newTransaction = new Transaction();
-		//Email 1 newTra.setUse
-		//Email 2
+		//newTransaction.setUserEmail("UserTest@mail.com");
+		//newTransaction.set("BuddyTest@mail.com");
+		newTransaction.setDate(new Date());
 		newTransaction.setDescription("Paying my buddy Joe");
+		newTransaction.setTransactionAmount((10));
+		newTransaction.setTransactionFee((long) FeeRateForEachTransaction * newTransaction.getTransactionAmount());
 
-		newTransaction = transactionService.addTransaction(newTransaction);
+		//newTransaction = transactionService.addTransaction(newTransaction);
 
 		transactionService.getTransactions().forEach(
 				transaction -> System.out.println(transaction.getDescription()));

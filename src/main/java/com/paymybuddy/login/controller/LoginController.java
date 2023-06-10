@@ -1,17 +1,14 @@
 package com.paymybuddy.login.controller;
 
-import com.paymybuddy.login.model.Transaction;
 import com.paymybuddy.login.model.UserAccount;
 import com.paymybuddy.login.repository.UserAccountRepository;
 import com.paymybuddy.login.utils.PasswordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.util.List;
+import javax.servlet.http.HttpSession;
 
 @RestController
 public class LoginController {
@@ -39,7 +36,7 @@ public class LoginController {
     }
 
 
-    @GetMapping("/login")
+    @GetMapping("/home")
     public String showLoginForm()
     {
         return "redirect:/login.html";
@@ -47,11 +44,30 @@ public class LoginController {
 
 
     @PostMapping("/login")
-    public RedirectView login(@RequestParam String email, @RequestParam String password)
-    {
+    public RedirectView login(@RequestParam String email, @RequestParam String password, HttpSession httpSession) {
+        // On vérifie les identifiants
         UserAccount foundUser = userAccountRepository.findById(String.valueOf(email)).orElse(null);
-        if (foundUser != null && PasswordUtils.comparePassword(password,foundUser.getPassword()))
-        {
+
+        // On s'assure que l'on récupère l'email de la personne connectée
+        System.out.println(httpSession.getId());
+
+        if (foundUser != null && PasswordUtils.comparePassword(password, foundUser.getPassword())) {
+
+            // créer un objet en session ici
+            httpSession.setAttribute("email", email);
+
+            // créer ici l'objet
+            //MyObject myObject = new MyObject();
+
+            //return "L'objet a été stocké en session";
+
+
+
+
+
+
+
+            //Renvoyer vers une page après succès d'authentification
             return new RedirectView("loginSuccess.html");
         }
         else
@@ -59,39 +75,6 @@ public class LoginController {
 
             return new RedirectView("loginFail.html");
         }
-    }
-
-    @GetMapping(value = {"/transfer"})
-    public String transfer(Model model) {
-
-        ///On récupère les infos de la personne connectée
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUserAccountEmail = authentication.getName();
-
-        // On liste les BuddyContact du UserAccount
-
-        //On affiche les transactions effectuées avec les BuddyContact
-
-        List<Transaction> transactions;
-
-        return "home";
-
-    }
-
-    @PostMapping(value = { "/transfer"})
-    public String newTransaction(Model model) {
-
-        //On récupère les infos de la personne connectée
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUserAccountEmail = authentication.getName();
-
-        // On récupère les informations du formulaire de paiement
-
-        //On fait une transaction entre les 2 comptes
-
-        return "home";
     }
 
     /*
@@ -102,5 +85,5 @@ public class LoginController {
     */
 
 
-
 }
+

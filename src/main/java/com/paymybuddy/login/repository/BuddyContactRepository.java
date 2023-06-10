@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 //public interface BuddyContactRepository extends CrudRepository <BuddyContactId, Integer>
 public interface BuddyContactRepository extends CrudRepository <BuddyContact, BuddyContactId>
 {
-
+    //public List<BuddyContact> findBuddyContactByEmail(String buddy_email);
 
 }

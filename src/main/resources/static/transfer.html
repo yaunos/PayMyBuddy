@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Transfer money to you buddy</title>
@@ -7,19 +8,83 @@
 <body>
 
 <!-- Menu Home Transfer Profile Contact Log off -->
+<div class="col-md-4">
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/home.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/transfer.html">Transfer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/profile.html">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact.html">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link">Log off</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
 
 <!-- Bouton Add connection-->
+<button onclick="window.location.href = '/contact.html';">Add a connection</button>
+<br>
+<br>
 
-<!-- Formulaire tranfert argent -->
-<form action="/transfer" method="post">
-    <label for="email">Email:</label><br>
-    <input type="text" id="email" name="Select a connection"><br>
+<!-- Formulaire transfert argent -->
+<form method="post" action="/transfer">
+    <label for="Email">Email:</label><br>
+    <input type="text" id="email" name="email"><br>
     <label for="transactionAmount">Amount:</label><br>
     <input type="text" id="transactionAmount" name="transactionAmount">
     <input type="submit" value="Pay">
 </form>
 
+<br>
+<br>
+
+<!-- Formulaire simple transfert argent -->
+<h4>Send Money</h4>
+<form action="/transfer" method="post">
+    <label for="email">Contact:</label><br>
+    <input type="text" id="email" name="email"><br>
+    <label for="transactionAmount">Amount:</label><br>
+    <input type="text" id="transactionAmount" name="transactionAmount"><br>
+    <label for="description">Description:</label><br>
+    <input type="text" id="description" name="description">
+    <input type="submit" value="Pay">
+</form>
+
+<br>
+<br>
 <!-- Mes transactions  -->
+<h4>My transactions</h4>
+<table class="table table-striped" style="vertical-align: middle;">
+    <thead>
+    <tr style="background-color: darkgray; height: 80px; vertical-align: middle;">
+        <th scope="col">Connections</th>
+        <th scope="col">Description</th>
+        <th scope="col">Amount</th>
+    </tr>
+    <tr style="height: 80px; vertical-align: middle; th:each="transaction : ${transactions}>
+        <td th:utext="${transaction.name}">...</td>
+        <td th:utext="${transaction.description}">...</th>
+        <td th:utext="${transaction.connection}">...</th>
+    </tr>
+
+    </thead>
+</table>
+
+
 
 </body>
 </html>
