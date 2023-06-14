@@ -11,7 +11,11 @@ import java.util.Optional;
 //public interface UserAccount extends JpaRepository
 
 public interface UserAccountRepository extends CrudRepository<UserAccount, String> {
+
     Optional<UserAccount> findByEmail(String email);
+
+    Iterable<UserAccount> findAllByEmailContainsIgnoreCase(String email);
+
 }
 
 

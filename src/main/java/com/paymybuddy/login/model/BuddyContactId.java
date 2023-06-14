@@ -10,18 +10,20 @@ public class BuddyContactId implements Serializable {
 
     //@Id
     //@Column(name = "buddy_email")
-    private String buddy_email;
+
+
+    //private String buddy_email;
+    private String buddyEmail;
 
     //@Id
     //@Column(name = "user_email")
-    private String user_email;
+    private String userEmail;
 
     // default constructor
-
-
-    public BuddyContactId(String buddy_email, String user_email) {
-        this.buddy_email = buddy_email;
-        this.user_email = user_email;
+    public
+    BuddyContactId(String buddyEmail, String userEmail) {
+        this.buddyEmail = buddyEmail;
+        this.userEmail = userEmail;
     }
 
     public BuddyContactId() {
@@ -29,20 +31,20 @@ public class BuddyContactId implements Serializable {
     }
 
     // getters, equals() and hashcode() methods
-    public String getBuddy_email() {
-        return buddy_email;
+    public String getBuddyEmail() {
+        return buddyEmail;
     }
 
-    public void setBuddy_email(String buddy_email) {
-        this.buddy_email = buddy_email;
+    public void setBuddyEmail(String buddy_email) {
+        this.buddyEmail = buddyEmail;
     }
 
-    public String getUser_email() {
-        return user_email;
+    public String getUserEmail() {
+        return userEmail;
     }
 
-    public void setUser_email(String user_email) {
-        this.user_email = user_email;
+    public void setUserEmail(String user_email) {
+        this.userEmail = userEmail;
     }
 
     // equals() method
@@ -51,13 +53,13 @@ public class BuddyContactId implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BuddyContactId that = (BuddyContactId) o;
-        return Objects.equals(buddy_email, that.buddy_email) && Objects.equals(user_email, that.user_email);
+        return Objects.equals(buddyEmail, that.buddyEmail) && Objects.equals(userEmail, that.userEmail);
     }
 
 
     // hashCode() method
     @Override
     public int hashCode() {
-        return Objects.hash(buddy_email, user_email);
+        return Objects.hash(buddyEmail, userEmail);
     }
 }

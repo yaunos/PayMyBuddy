@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhml"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Transfer money to you buddy</title>
 </head>
 <body>
-
+<!--
 <!-- Menu Home Transfer Profile Contact Log off -->
 <div class="col-md-4">
     <nav class="navbar navbar-expand-lg">
@@ -18,7 +17,7 @@
                         <a class="nav-link" href="/home.html">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/transfer.html">Transfer</a>
+                        <a class="nav-link" href="/templates/transfer.html">Transfer</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/profile.html">Profile</a>
@@ -35,12 +34,12 @@
     </nav>
 </div>
 
-<!-- Bouton Add connection-->
+<!-- Bouton Add connection -->
 <button onclick="window.location.href = '/contact.html';">Add a connection</button>
 <br>
 <br>
 
-<!-- Formulaire transfert argent -->
+<!-- Formulaire transfert argent
 <form method="post" action="/transfer">
     <label for="Email">Email:</label><br>
     <input type="text" id="email" name="email"><br>
@@ -48,6 +47,8 @@
     <input type="text" id="transactionAmount" name="transactionAmount">
     <input type="submit" value="Pay">
 </form>
+-->
+
 
 <br>
 <br>
@@ -68,19 +69,27 @@
 <br>
 <!-- Mes transactions  -->
 <h4>My transactions</h4>
+
 <table class="table table-striped" style="vertical-align: middle;">
     <thead>
-    <tr style="background-color: darkgray; height: 80px; vertical-align: middle;">
-        <th scope="col">Connections</th>
-        <th scope="col">Description</th>
-        <th scope="col">Amount</th>
-    </tr>
-    <tr style="height: 80px; vertical-align: middle; th:each="transaction : ${transactions}>
-        <td th:utext="${transaction.name}">...</td>
-        <td th:utext="${transaction.description}">...</th>
-        <td th:utext="${transaction.connection}">...</th>
-    </tr>
-
+    <!-- <tr style="background-color: darkgray; height: 80px; vertical-align: middle;"> -->
+        <tr>
+            <!-- <th scope="col">Connections</th>
+            <th scope="col">Description</th>
+            <th scope="col">Amount</th> -->
+            <th>Connections</th>
+            <th>Description</th>
+            <th>Amount</th>
+         </tr>
+    </thead>
+    <tbody>
+    <!-- <tr style="height: 40px; vertical-align: middle; th:each="transaction : ${transactions}"> -->
+        <tr th:each="transaction : ${myTransactions}">
+            <td th:text="${transaction.buddyEmail}"></td>
+            <td th:text="${transaction.description}"></td>
+            <td th:text="${transaction.transactionAmount}"></td>
+        </tr>
+    </tbody>
     </thead>
 </table>
 

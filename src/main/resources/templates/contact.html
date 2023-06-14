@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Search for your buddies</title>
+</head>
+<body>
+<form th:action="@{/contact}" method="post">
+    <!-- <label for="email">Add a user email as a buddy contact:</label><br> -->
+    <!-- <input type="text" id="email" name="email"> -->
+    <select multiple>
+        <option th:each="email : ${usersEmailsExceptedMe}" th:value="${email}" th:text="${email}"></option>
+    </select>
+    <br>
+    <input type="submit" value="Add to your contacts">
+</form>
+
+</body>
+</html>

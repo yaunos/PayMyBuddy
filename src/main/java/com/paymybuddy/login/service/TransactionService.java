@@ -37,7 +37,7 @@ public class TransactionService {
      * Get all transactions of the current connected user
      */
 
-    public Optional<Transaction> getTransactionsOfConnectedUser(String email) {
+    public Iterable<Transaction> getTransactionsOfConnectedUser(String email) {
         return transactionRepository.findByUserEmail(email);
     }
 

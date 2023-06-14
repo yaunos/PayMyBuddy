@@ -5,13 +5,11 @@ import com.paymybuddy.login.model.UserAccount;
 import com.paymybuddy.login.service.TransactionService;
 import com.paymybuddy.login.service.UserAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
@@ -20,7 +18,10 @@ import java.util.Optional;
 
 import static com.paymybuddy.login.constants.Constants.FeeRateForEachTransaction;
 
-@RestController
+// @RestController
+// ne fonctionne pas avec thymeleaf
+
+@Controller
 public class TransactionController {
     private final TransactionService transactionService;
 
@@ -46,21 +47,31 @@ public class TransactionController {
     public String transfer(Model model, HttpSession httpSession) {
 
         ///On récupère les infos de la personne connectée
-        System.out.println(httpSession.getAttribute("email"));
+        String currentEmail = (String) httpSession.getAttribute("email");
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        //Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         //String currentUserAccountEmail = authentication.getName();
-        System.out.println(authentication.getName());
+        //System.out.println(authentication.getName());
 
         // On liste les BuddyContact du UserAccount
         // System.out.println(httpSession.get)
-        //List<BuddyContact> buddyContacts = BuddyContactService //
+        //List<BuddyContact> buddyContacts = buddyContactService.
 
-        //On affiche les transactions effectuées avec les BuddyContact
+        //On liste les transactions effectuées avec les BuddyContact
 
-        // // List<Transaction> transactions = TransactionService.;
+        System.out.println("*** Liste des transactions de l'utilisateur connecté ***");
+        Iterable<Transaction> myTransactions = transactionService.getTransactionsOfConnectedUser(currentEmail);
+        myTransactions.forEach(transaction -> System.out.println(transaction.getDescription()));
+        myTransactions.forEach(transaction -> System.out.println(transaction.getBuddyEmail()));
+        model.addAttribute("transactions", myTransactions);
 
-        return "home";
+
+        System.out.println("*** Liste des transactions de l'utilisateur courant ***");
+
+
+        //return "home";
+        //return "transfer";
+        return "redirect:/transfer.html";
 
     }
 
@@ -72,8 +83,8 @@ public class TransactionController {
         //On récupère les infos de la personne connectée
 
         // Par SecurityContextHolder
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUserAccountEmail = authentication.getName();
+        // Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        // String currentUserAccountEmail = authentication.getName();
 
         // Par attribut de session
         String currentEmail = (String) httpSession.getAttribute("email");
@@ -86,7 +97,7 @@ public class TransactionController {
         transaction.setDescription(description);
         transaction.setTransactionAmount(Long.parseLong(transactionAmount));
         transaction.setTransactionFee((long) ((Long.valueOf(transactionAmount))*FeeRateForEachTransaction));
-
+        
         // On enregistre la transaction
         transactionService.addTransaction(transaction);
 
@@ -111,11 +122,6 @@ public class TransactionController {
         buddyAccount.setAccountBalance((long) newBalance);
 
         userAccountService.addUserAccount(buddyAccount);
-
-
-
-
-
 
         //
         return "home";

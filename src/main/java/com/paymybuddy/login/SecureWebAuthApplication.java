@@ -52,7 +52,9 @@ public class SecureWebAuthApplication implements CommandLineRunner {
 
 		System.out.println("*** Liste des contacts ***");
 		Iterable<BuddyContact> buddies = buddyContactService.getBuddyContacts();
-		buddies.forEach(buddyContact -> System.out.println(buddyContact.getBuddyContactId().getBuddy_email()));
+		buddies.forEach(buddyContact -> System.out.println(buddyContact.getBuddyContactId().getBuddyEmail()));
+
+
 
 		System.out.println("*** Fin ***");
 		/**

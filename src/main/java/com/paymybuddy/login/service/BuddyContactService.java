@@ -26,25 +26,22 @@ public class BuddyContactService {
     //public Optional<BuddyContactId> getBuddyContactsById(Integer id) {
     public Optional<BuddyContact> getBuddyContactsById(BuddyContactId id) {
         return buddyContactRepository.findById(id);
-/*
+
 
     // Get contacts by user email
-    public List<BuddyContact> getUserContacts(String email) {
-        return BuddyContactRepository.findByUserEmail(email);
+    //public Iterable<BuddyContact> findByUserName (String userName);
+
+
+
+    // Add a new contact to your buddies
+
+/*
+    public BuddyContact addContactAsBuddy(BuddyContact buddyContact) {
+        return BuddyContactRepository.save(buddyContact);
         }
 
-    // Add a new buddy to the user
+ */
 
-
-    public BuddyContact addContact(String user_email, String buddy_email) {
-        BuddyContact contact = new BuddyContact();
-        contact.setEmail(user_email);
-        contact.setBuddyEmail(buddy_email);
-
-        return BuddyContactRepository.save(contact);
-        }
-
-         */
 
 
 

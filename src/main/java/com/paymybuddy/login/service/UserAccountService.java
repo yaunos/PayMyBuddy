@@ -15,13 +15,12 @@ public class UserAccountService {
 
     public Iterable<UserAccount> getUserAccounts() {
         return userAccountRepository.findAll();
-
     }
 
     public Optional<UserAccount> getUserAccountByEmail(String email) {
         return userAccountRepository.findByEmail(email);
-
     }
+
 
     /**
      *  Add, modify (delete ?) User Accounts

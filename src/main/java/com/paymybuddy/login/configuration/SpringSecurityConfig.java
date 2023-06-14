@@ -17,7 +17,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 // Permet à SpringSecurity de savoir où se trouve la config web
 @EnableWebSecurity
 
-// Etendre cette classe avec WebSecurityConfigurer Adpater permet de gérer la chaîne de filtres
+// Etendre cette classe avec WebSecurityConfigurer Adapter permet de gérer la chaîne de filtres
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserAccountDetailsServiceImpl userAccountDetailsService;
@@ -38,7 +38,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
                 //.antMatchers("/admin").hasRole("ADMIN")
                 //.antMatchers("/user").hasRole("USER")
-                .antMatchers("/contact", "/contact.html", "/credit", "/home", "/home.html", "/login.html", "/loginSuccess.html", "/loginFail.html", "/login", "/transfer.html", "/transfer").permitAll()
+                .antMatchers("/contact", "/contact.html", "/debit", "/example", "/example.html","/credit", "/home", "/home.html", "/login.html", "/loginSuccess.html", "/loginFail.html", "/login", "/transfer.html", "/transfer").permitAll()
 
                 //toutes les autres requêtes ... puis suivi de authenticated -> toutes les requêtes doivent être authentifiées par le login form
                 .anyRequest().authenticated()

@@ -4,14 +4,22 @@ import com.paymybuddy.login.model.UserAccount;
 import com.paymybuddy.login.repository.UserAccountRepository;
 import com.paymybuddy.login.service.UserAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
-@RestController
+
+// @RestController
+// ne fonctionne pas avec thymeleaf : on utilise l'annotation @Controller
+
+@Controller
 public class UserAccountController {
 
     @Autowired
@@ -32,7 +40,6 @@ public class UserAccountController {
         return "redirect:/home.html";
     }
     */
-
 
 
     @PostMapping("/home")
@@ -66,8 +73,27 @@ public class UserAccountController {
 
         userAccountService.addUserAccount(userAccount);
 
+
         return null;
     }
 
+    @PostMapping("/debit")
+    public String debitMyAccount(@RequestParam("transactionAmount2") String amount, HttpSession httpSession) {
 
+        String email = (String) httpSession.getAttribute("email");
+        System.out.println("Je veux verser de l'argent de payMyBuddy vers mon compte bancaire :");
+        System.out.println(email);
+
+        Optional<UserAccount> existingUserAccount = userAccountService.getUserAccountByEmail(email);
+        UserAccount userAccount = existingUserAccount.get();
+        System.out.println(userAccount.getEmail());
+        double currentBalance = userAccount.getAccountBalance();
+        double newBalance = currentBalance - Long.parseLong(amount);
+        userAccount.setAccountBalance((long) newBalance);
+
+        userAccountService.addUserAccount(userAccount);
+
+
+        return null;
+    }
 }
