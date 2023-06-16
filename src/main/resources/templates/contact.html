@@ -8,7 +8,7 @@
 <form th:action="@{/contact}" method="post">
     <!-- <label for="email">Add a user email as a buddy contact:</label><br> -->
     <!-- <input type="text" id="email" name="email"> -->
-    <select multiple>
+    <select id="email" name="email">
         <option th:each="email : ${usersEmailsExceptedMe}" th:value="${email}" th:text="${email}"></option>
     </select>
     <br>

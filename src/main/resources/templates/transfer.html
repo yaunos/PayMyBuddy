@@ -5,7 +5,6 @@
     <title>Transfer money to you buddy</title>
 </head>
 <body>
-<!--
 <!-- Menu Home Transfer Profile Contact Log off -->
 <div class="col-md-4">
     <nav class="navbar navbar-expand-lg">
@@ -23,7 +22,7 @@
                         <a class="nav-link" href="/profile.html">Profile</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/contact.html">Contact</a>
+                        <a class="nav-link" href="/contact">Contact</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link">Log off</a>
@@ -84,15 +83,40 @@
     </thead>
     <tbody>
     <!-- <tr style="height: 40px; vertical-align: middle; th:each="transaction : ${transactions}"> -->
-        <tr th:each="transaction : ${myTransactions}">
+        <tr th:each="transaction : ${transactions}">
             <td th:text="${transaction.buddyEmail}"></td>
             <td th:text="${transaction.description}"></td>
             <td th:text="${transaction.transactionAmount}"></td>
         </tr>
     </tbody>
-    </thead>
+
 </table>
 
+
+<!-- Affichage de la pagination
+<div>
+    <p>
+        <span th:if="${currentPage > 1}">
+            <a th:href="@{/transactions(currentPage=1)}"><<</a>
+            <a th:href="@{/transactions(currentPage=${currentPage - 1})}"><</a>
+        </span>
+
+        <span th:each="pageNumber : ${#numbers.sequence(1, totalPages)}">
+            <span th:if="${pageNumber == currentPage}">
+                <strong th:text="${pageNumber}"></strong>
+            </span>
+            <span th:unless="${pageNumber == currentPage}">
+                <a th:href="@{/transactions(currentPage=${pageNumber})}" th:text="${pageNumber}"></a>
+            </span>
+        </span>
+
+        <span th:if="${currentPage < totalPages}">
+            <a th:ref="@{/transactions(currentPage=${currentPage + 1})}"><<</a>
+            <a th:ref="@{/transactions(currentPage=${totalPages})}">>></a>
+        </span>
+    </p>
+</div>
+-->
 
 
 </body>

@@ -3,8 +3,9 @@ package com.paymybuddy.login.model;
 
 import lombok.Data;
 
-import javax.persistence.EmbeddedId;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 
@@ -14,28 +15,47 @@ import java.io.Serializable;
 @Table(name = "buddy_contact")
 public class BuddyContact implements Serializable {
 
-    @EmbeddedId
-    private BuddyContactId buddyContactId;
+    @Id
+    @Column(name = "user_email")
+    private String userEmail;
 
+
+    @Column(name = "buddy_email")
+    private String buddyEmail;
+
+
+    // default constructor
+    public
+    BuddyContact(String buddyEmail, String userEmail) {
+        this.buddyEmail = buddyEmail;
+        this.userEmail = userEmail;
+    }
     // constructors, getters and setters
 
-    // constructor
-    public BuddyContact(BuddyContactId buddyContactId) {
-       this.buddyContactId = buddyContactId;
-   }
 
     public BuddyContact() {
 
     }
 
-    // getters and setters
-    public BuddyContactId getBuddyContactId() {
-        return buddyContactId;
+
+
+    // added
+    public String getBuddyEmail() {
+        return userEmail;
     }
 
-    public void setBuddyContactId(BuddyContactId buddyContactId) {
-        this.buddyContactId = buddyContactId;
+    public void setBuddyEmail(String buddyEmail) {
+        this.buddyEmail = buddyEmail;
     }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
 }
 
 

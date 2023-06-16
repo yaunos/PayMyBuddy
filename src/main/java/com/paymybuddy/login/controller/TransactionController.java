@@ -68,10 +68,28 @@ public class TransactionController {
 
         System.out.println("*** Liste des transactions de l'utilisateur courant ***");
 
+        // ******* Partie pagination *******
+        /*
+
+        List<Transaction> pages PaginationUtils.paginateResults(resultList, pageSize);
+
+        List<Result> currentPageResults = pages.get(currentPage - 1);
+        model.addAttribute("transactions", currentPageResults);
+
+        int totalPages = pages.size();
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("currentPage", totalPages);
+
+        PaginationUtils.printPagination(currentPage, totalPages);
+
+        return "results";
+        */
+
+
 
         //return "home";
-        //return "transfer";
-        return "redirect:/transfer.html";
+        return "transfer";
+        //return "redirect:/transfer.html";
 
     }
 

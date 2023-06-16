@@ -64,21 +64,23 @@ public class ContactController {
         }
 
     @PostMapping(value = {"/contact"})
-    public String addBuddy(@RequestParam String email, Model model, HttpSession httpsession){
+    public String addContactAsBuddy(@RequestParam String email, Model model, HttpSession httpsession){
         // on récupère l'email de l'utilisateur connecté
         String currentEmail = (String) httpsession.getAttribute("email");
 
         // On récupère les buddies de l'utilisateur connecté
         Iterable<BuddyContact> buddyContacts = buddyContactService.getBuddyContacts();
-        BuddyContact buddyContact = new BuddyContact();
+        BuddyContact newBuddyContact = new BuddyContact();
 
         // on crée un nouveau couple userEmail, buddyEmail
-        //buddyContact.setBuddyContactId(currentEmail, );
+        newBuddyContact.setUserEmail(currentEmail);
+        newBuddyContact.setBuddyEmail(email);
 
         // On enregistre le nouvel ami (nouveau buddy parmi les utilisateurs de payMyBuddy)
-        //buddyContactService.
 
-        return "redirect:/contact.html";
+        buddyContactService.addContactAsBuddy(newBuddyContact);
+
+        return "redirect:/contact";
     }
 
 

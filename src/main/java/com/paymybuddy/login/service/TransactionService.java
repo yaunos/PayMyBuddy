@@ -17,7 +17,7 @@ public class TransactionService {
     @Autowired
     private TransactionRepository transactionRepository;
 
-    //
+    // Dependency injection
     @Autowired TransactionService(TransactionRepository transactionRepository) {
         this.transactionRepository = transactionRepository;
     }
