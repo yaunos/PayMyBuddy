@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
 import java.util.Optional;
 
 
@@ -53,7 +54,7 @@ public class UserAccountController {
 
 
     @PostMapping("/credit")
-    public String creditMyAccount(@RequestParam("transactionAmount") String amount, HttpSession httpSession) {
+    public String creditMyAccount(@RequestParam("transactionAmount") BigDecimal amount, HttpSession httpSession) {
 
         String email = (String) httpSession.getAttribute("email");
         System.out.println("Je veux ajouter de l'argent sur mon compte :");
@@ -67,9 +68,13 @@ public class UserAccountController {
         Optional<UserAccount> existingUserAccount = userAccountService.getUserAccountByEmail(email);
         UserAccount userAccount = existingUserAccount.get();
         System.out.println(userAccount.getEmail());
-        double currentBalance = userAccount.getAccountBalance();
-        double newBalance = currentBalance + Long.parseLong(amount);
-        userAccount.setAccountBalance((long) newBalance);
+        //double currentBalance = userAccount.getAccountBalance();
+        //float currentBalance = userAccount.getAccountBalance();
+        BigDecimal currentBalance = userAccount.getAccountBalance();
+        //double newBalance = currentBalance + Long.parseLong(amount);
+        BigDecimal newBalance = currentBalance.add(amount);
+        //userAccount.setAccountBalance((long) newBalance);
+        userAccount.setAccountBalance(newBalance);
 
         userAccountService.addUserAccount(userAccount);
 
@@ -78,7 +83,7 @@ public class UserAccountController {
     }
 
     @PostMapping("/debit")
-    public String debitMyAccount(@RequestParam("transactionAmount2") String amount, HttpSession httpSession) {
+    public String debitMyAccount(@RequestParam("transactionAmount2") BigDecimal amount, HttpSession httpSession) {
 
         String email = (String) httpSession.getAttribute("email");
         System.out.println("Je veux verser de l'argent de payMyBuddy vers mon compte bancaire :");
@@ -87,9 +92,12 @@ public class UserAccountController {
         Optional<UserAccount> existingUserAccount = userAccountService.getUserAccountByEmail(email);
         UserAccount userAccount = existingUserAccount.get();
         System.out.println(userAccount.getEmail());
-        double currentBalance = userAccount.getAccountBalance();
-        double newBalance = currentBalance - Long.parseLong(amount);
-        userAccount.setAccountBalance((long) newBalance);
+        //double currentBalance = userAccount.getAccountBalance();
+        BigDecimal currentBalance = userAccount.getAccountBalance();
+        //double newBalance = currentBalance - Long.parseLong(amount);
+        BigDecimal newBalance = currentBalance.subtract(amount);
+        //userAccount.setAccountBalance((long) newBalance);
+        userAccount.setAccountBalance(newBalance);
 
         userAccountService.addUserAccount(userAccount);
 

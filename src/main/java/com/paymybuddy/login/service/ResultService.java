@@ -1,16 +1,18 @@
 package com.paymybuddy.login.service;
 
 import com.paymybuddy.login.model.Transaction;
-import com.paymybuddy.login.repository.PaginationRepository;
+import com.paymybuddy.login.repository.ResultRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public class PaginationService {
+@Service
+public class ResultService {
     @Autowired
-    private PaginationRepository paginationRepository;
+    private ResultRepository resultRepository;
 
     public List<Transaction> getAllResults() {
-        return paginationRepository.findAll();
+        return resultRepository.findAll();
     }
 }

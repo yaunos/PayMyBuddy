@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Date;
 import java.util.Optional;
-
-import static com.paymybuddy.login.constants.Constants.FeeRateForEachTransaction;
 
 @Service
 public class TransactionService {
@@ -84,6 +81,7 @@ public class TransactionService {
      * Send money to your buddy
      */
 
+    /*
     @Transactional
     public Transaction newTransaction(String from_email, String to_email, int transactionAmount, int transactionFee, String description) {
         Transaction transaction = new Transaction();
@@ -97,8 +95,10 @@ public class TransactionService {
 
         //return null;
         return transaction;
+
+
+
     }
-
-
+     */
 }
 

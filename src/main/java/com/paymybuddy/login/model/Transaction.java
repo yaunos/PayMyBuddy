@@ -4,6 +4,7 @@ package com.paymybuddy.login.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
@@ -29,10 +30,12 @@ public class Transaction {
     private Date date;
 
     @Column(name = "transaction_amount")
-    private long transactionAmount;
+    //private Long transactionAmount;
+    private BigDecimal transactionAmount;
 
     @Column(name = "transaction_fee")
-    private long transactionFee;
+    //private long transactionFee;
+    private BigDecimal transactionFee;
 
     @Column(name = "description")
     private String description;

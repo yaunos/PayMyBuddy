@@ -3,10 +3,7 @@ package com.paymybuddy.login.model;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Data
@@ -16,6 +13,11 @@ import java.io.Serializable;
 public class BuddyContact implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "buddy_link_number")
+    private long transactionNumber;
+
+    //@Id
     @Column(name = "user_email")
     private String userEmail;
 

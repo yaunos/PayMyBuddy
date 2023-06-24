@@ -77,8 +77,8 @@ public class ContactController {
         newBuddyContact.setBuddyEmail(email);
 
         // On enregistre le nouvel ami (nouveau buddy parmi les utilisateurs de payMyBuddy)
-
         buddyContactService.addContactAsBuddy(newBuddyContact);
+
 
         return "redirect:/contact";
     }

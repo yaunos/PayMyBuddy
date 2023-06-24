@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Optional;
 
@@ -49,6 +50,9 @@ public class TransactionController {
         ///On récupère les infos de la personne connectée
         String currentEmail = (String) httpSession.getAttribute("email");
 
+        // On récupère les buddies de l'utilisateur connecté
+
+
         //Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         //String currentUserAccountEmail = authentication.getName();
         //System.out.println(authentication.getName());
@@ -68,24 +72,6 @@ public class TransactionController {
 
         System.out.println("*** Liste des transactions de l'utilisateur courant ***");
 
-        // ******* Partie pagination *******
-        /*
-
-        List<Transaction> pages PaginationUtils.paginateResults(resultList, pageSize);
-
-        List<Result> currentPageResults = pages.get(currentPage - 1);
-        model.addAttribute("transactions", currentPageResults);
-
-        int totalPages = pages.size();
-        model.addAttribute("currentPage", currentPage);
-        model.addAttribute("currentPage", totalPages);
-
-        PaginationUtils.printPagination(currentPage, totalPages);
-
-        return "results";
-        */
-
-
 
         //return "home";
         return "transfer";
@@ -96,7 +82,7 @@ public class TransactionController {
     // On s'assure de la bonne gestion des transaction (commit et rollbacks)
     @Transactional
     @PostMapping(value = { "/transfer"})
-    public String newTransaction(@RequestParam("email") String email, @RequestParam("transactionAmount" ) String transactionAmount, @RequestParam("description") String description, HttpSession httpSession) {
+    public String newTransaction(@RequestParam("email") String email, @RequestParam("transactionAmount" ) BigDecimal transactionAmount, @RequestParam("description") String description, HttpSession httpSession) {
 
         //On récupère les infos de la personne connectée
 
@@ -113,9 +99,11 @@ public class TransactionController {
         transaction.setBuddyEmail(email);
         transaction.setDate(new Date());
         transaction.setDescription(description);
-        transaction.setTransactionAmount(Long.parseLong(transactionAmount));
-        transaction.setTransactionFee((long) ((Long.valueOf(transactionAmount))*FeeRateForEachTransaction));
-        
+        //transaction.setTransactionAmount(transactionAmount);
+        transaction.setTransactionAmount(transactionAmount);
+        //transaction.setTransactionFee((Long) ((Long.valueOf(transactionAmount))*FeeRateForEachTransaction));
+        transaction.setTransactionFee(transactionAmount.multiply(FeeRateForEachTransaction));
+
         // On enregistre la transaction
         transactionService.addTransaction(transaction);
 
@@ -124,9 +112,12 @@ public class TransactionController {
         Optional<UserAccount> existingUserAccount = userAccountService.getUserAccountByEmail(email);
         UserAccount userAccount = existingUserAccount.get();
         System.out.println(userAccount.getEmail());
-        double currentBalance2 = userAccount.getAccountBalance();
-        double newBalance2 = currentBalance2 - Long.parseLong(transactionAmount);
-        userAccount.setAccountBalance((long) newBalance2);
+        //double currentBalance2 = userAccount.getAccountBalance();
+        BigDecimal currentBalance2 = userAccount.getAccountBalance();
+        //double newBalance2 = currentBalance2 + Long.parseLong(transactionAmount);
+        BigDecimal newBalance2 = currentBalance2.add(transactionAmount);
+        //userAccount.setAccountBalance((long) newBalance2);
+        userAccount.setAccountBalance(newBalance2);
 
         userAccountService.addUserAccount(userAccount);
 
@@ -135,9 +126,10 @@ public class TransactionController {
         Optional<UserAccount> existingBuddyAccount = userAccountService.getUserAccountByEmail(currentEmail);
         UserAccount buddyAccount = existingBuddyAccount.get();
         System.out.println(buddyAccount.getEmail());
-        double currentBalance = buddyAccount.getAccountBalance();
-        double newBalance = currentBalance - Long.parseLong(transactionAmount) - transaction.getTransactionFee();
-        buddyAccount.setAccountBalance((long) newBalance);
+        BigDecimal currentBalance = buddyAccount.getAccountBalance();
+        //Long newBalance = currentBalance - Long.parseLong(transactionAmount) - transaction.getTransactionFee();
+        BigDecimal newBalance = currentBalance.subtract(transactionAmount).subtract(transaction.getTransactionFee());
+        buddyAccount.setAccountBalance(newBalance);
 
         userAccountService.addUserAccount(buddyAccount);
 

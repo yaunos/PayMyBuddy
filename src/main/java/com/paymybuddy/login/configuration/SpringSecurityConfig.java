@@ -38,7 +38,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
                 //.antMatchers("/admin").hasRole("ADMIN")
                 //.antMatchers("/user").hasRole("USER")
-                .antMatchers("/contact", "/contact.html", "/debit", "/example", "/example.html","/credit", "/home", "/home.html", "/login.html", "/loginSuccess.html", "/loginFail.html", "/login", "/transfer.html", "/transfer").permitAll()
+                .antMatchers("/contact", "/contact.html", "/debit", "/example", "/example.html","/credit", "/home", "/home.html", "/images","/login.html", "/loginSuccess.html", "/loginFail.html", "/login", "/results","results.html", "/transfer.html", "/transfer").permitAll()
 
                 //toutes les autres requêtes ... puis suivi de authenticated -> toutes les requêtes doivent être authentifiées par le login form
                 .anyRequest().authenticated()

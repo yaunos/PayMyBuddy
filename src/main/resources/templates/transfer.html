@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Transfer money to you buddy</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/custom.css">
 </head>
 <body>
 <!-- Menu Home Transfer Profile Contact Log off -->
@@ -34,7 +36,7 @@
 </div>
 
 <!-- Bouton Add connection -->
-<button onclick="window.location.href = '/contact.html';">Add a connection</button>
+<button style="background-color: dodgerblue" onclick="window.location.href = '/contact'; ">Add a connection</button>
 <br>
 <br>
 
@@ -54,11 +56,21 @@
 
 <!-- Formulaire simple transfert argent -->
 <h4>Send Money</h4>
-<form action="/transfer" method="post">
+<form th:action="@{/transfer}" method="post">
+    <!--
+        <select id="email" name="email">
+            <option th:each="email : ${buddyContacts}" th:value="${email}" th:text="${email}"></option>
+        </select>
+        -->
+
     <label for="email">Contact:</label><br>
     <input type="text" id="email" name="email"><br>
+
+
+
     <label for="transactionAmount">Amount:</label><br>
     <input type="text" id="transactionAmount" name="transactionAmount"><br>
+
     <label for="description">Description:</label><br>
     <input type="text" id="description" name="description">
     <input type="submit" value="Pay">
@@ -72,7 +84,7 @@
 <table class="table table-striped" style="vertical-align: middle;">
     <thead>
     <!-- <tr style="background-color: darkgray; height: 80px; vertical-align: middle;"> -->
-        <tr>
+        <tr style="background-color: #74D36A">
             <!-- <th scope="col">Connections</th>
             <th scope="col">Description</th>
             <th scope="col">Amount</th> -->
@@ -93,30 +105,9 @@
 </table>
 
 
-<!-- Affichage de la pagination
-<div>
-    <p>
-        <span th:if="${currentPage > 1}">
-            <a th:href="@{/transactions(currentPage=1)}"><<</a>
-            <a th:href="@{/transactions(currentPage=${currentPage - 1})}"><</a>
-        </span>
+<!-- Affichage de la pagination -->
 
-        <span th:each="pageNumber : ${#numbers.sequence(1, totalPages)}">
-            <span th:if="${pageNumber == currentPage}">
-                <strong th:text="${pageNumber}"></strong>
-            </span>
-            <span th:unless="${pageNumber == currentPage}">
-                <a th:href="@{/transactions(currentPage=${pageNumber})}" th:text="${pageNumber}"></a>
-            </span>
-        </span>
 
-        <span th:if="${currentPage < totalPages}">
-            <a th:ref="@{/transactions(currentPage=${currentPage + 1})}"><<</a>
-            <a th:ref="@{/transactions(currentPage=${totalPages})}">>></a>
-        </span>
-    </p>
-</div>
--->
 
 
 </body>
