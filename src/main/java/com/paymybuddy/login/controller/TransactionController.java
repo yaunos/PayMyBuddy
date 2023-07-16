@@ -84,6 +84,9 @@ public class TransactionController {
     @PostMapping(value = { "/transfer"})
     public String newTransaction(@RequestParam("email") String email, @RequestParam("transactionAmount" ) BigDecimal transactionAmount, @RequestParam("description") String description, HttpSession httpSession) {
 
+        //
+        //BigDecimal solde = new BigDecimal(@RequestParam("transactionAmount") BigDecimal transactionAmount));
+
         //On récupère les infos de la personne connectée
 
         // Par SecurityContextHolder
@@ -93,47 +96,55 @@ public class TransactionController {
         // Par attribut de session
         String currentEmail = (String) httpSession.getAttribute("email");
 
-        // On récupère les informations du formulaire de paiement
-        Transaction transaction = new Transaction();
-        transaction.setUserEmail(currentEmail);
-        transaction.setBuddyEmail(email);
-        transaction.setDate(new Date());
-        transaction.setDescription(description);
-        //transaction.setTransactionAmount(transactionAmount);
-        transaction.setTransactionAmount(transactionAmount);
-        //transaction.setTransactionFee((Long) ((Long.valueOf(transactionAmount))*FeeRateForEachTransaction));
-        transaction.setTransactionFee(transactionAmount.multiply(FeeRateForEachTransaction));
+        // Vérifier si le solde du compte courant est suffisant pour payer mon buddy
+        if(transactionService.checkSuficientBalance(email, transactionAmount)) {
 
-        // On enregistre la transaction
-        transactionService.addTransaction(transaction);
+            // On récupère les informations du formulaire de paiement
+            Transaction transaction = new Transaction();
+            transaction.setUserEmail(currentEmail);
+            transaction.setBuddyEmail(email);
+            transaction.setDate(new Date());
+            transaction.setDescription(description);
+            //transaction.setTransactionAmount(transactionAmount);
+            transaction.setTransactionAmount(transactionAmount);
+            //transaction.setTransactionFee((Long) ((Long.valueOf(transactionAmount))*FeeRateForEachTransaction));
+            transaction.setTransactionFee(transactionAmount.multiply(FeeRateForEachTransaction));
 
-
-        // On ajoute le montant de la transaction au compte de mon buddy
-        Optional<UserAccount> existingUserAccount = userAccountService.getUserAccountByEmail(email);
-        UserAccount userAccount = existingUserAccount.get();
-        System.out.println(userAccount.getEmail());
-        //double currentBalance2 = userAccount.getAccountBalance();
-        BigDecimal currentBalance2 = userAccount.getAccountBalance();
-        //double newBalance2 = currentBalance2 + Long.parseLong(transactionAmount);
-        BigDecimal newBalance2 = currentBalance2.add(transactionAmount);
-        //userAccount.setAccountBalance((long) newBalance2);
-        userAccount.setAccountBalance(newBalance2);
-
-        userAccountService.addUserAccount(userAccount);
+            // On enregistre la transaction
+            transactionService.addTransaction(transaction);
 
 
-        // On retranche le montant de la transaction et la commission au compte utilisateur courant
-        Optional<UserAccount> existingBuddyAccount = userAccountService.getUserAccountByEmail(currentEmail);
-        UserAccount buddyAccount = existingBuddyAccount.get();
-        System.out.println(buddyAccount.getEmail());
-        BigDecimal currentBalance = buddyAccount.getAccountBalance();
-        //Long newBalance = currentBalance - Long.parseLong(transactionAmount) - transaction.getTransactionFee();
-        BigDecimal newBalance = currentBalance.subtract(transactionAmount).subtract(transaction.getTransactionFee());
-        buddyAccount.setAccountBalance(newBalance);
+            // On ajoute le montant de la transaction au compte de mon buddy
+            Optional<UserAccount> existingUserAccount = userAccountService.getUserAccountByEmail(email);
+            UserAccount userAccount = existingUserAccount.get();
+            System.out.println(userAccount.getEmail());
+            //double currentBalance2 = userAccount.getAccountBalance();
+            BigDecimal currentBalance2 = userAccount.getAccountBalance();
+            //double newBalance2 = currentBalance2 + Long.parseLong(transactionAmount);
+            BigDecimal newBalance2 = currentBalance2.add(transactionAmount);
+            //userAccount.setAccountBalance((long) newBalance2);
+            userAccount.setAccountBalance(newBalance2);
 
-        userAccountService.addUserAccount(buddyAccount);
+            userAccountService.addUserAccount(userAccount);
 
-        //
-        return "home";
+
+            // On retranche le montant de la transaction et la commission au compte utilisateur courant
+            Optional<UserAccount> existingBuddyAccount = userAccountService.getUserAccountByEmail(currentEmail);
+            UserAccount buddyAccount = existingBuddyAccount.get();
+            System.out.println(buddyAccount.getEmail());
+            BigDecimal currentBalance = buddyAccount.getAccountBalance();
+            //Long newBalance = currentBalance - Long.parseLong(transactionAmount) - transaction.getTransactionFee();
+            BigDecimal newBalance = currentBalance.subtract(transactionAmount).subtract(transaction.getTransactionFee());
+            buddyAccount.setAccountBalance(newBalance);
+
+            userAccountService.addUserAccount(buddyAccount);
+
+        } else {
+            //
+            //redirectAttributes.addFlashAttribute
+        }
+
+        return"redirect:/transfer";
+        //return "home";
     }
 }

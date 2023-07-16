@@ -36,13 +36,14 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .csrf().disable()
             .authorizeRequests()
+                //.requestMatchers("/images/**", "/css/**")
+                //.permitAll()
                 //.antMatchers("/admin").hasRole("ADMIN")
                 //.antMatchers("/user").hasRole("USER")
-                .antMatchers("/contact", "/contact.html", "/debit", "/example", "/example.html","/credit", "/home", "/home.html", "/images","/login.html", "/loginSuccess.html", "/loginFail.html", "/login", "/results","results.html", "/transfer.html", "/transfer").permitAll()
+                .antMatchers("/images/**", "/css/**","/contact", "/contact.html", "/debit", "/example", "/example.html","/credit", "/home", "/home.html", "/images","/login.html", "/loginSuccess.html", "/loginFail.html", "/login", "/results","results.html", "/transfer.html", "/transfer").permitAll()
 
                 //toutes les autres requêtes ... puis suivi de authenticated -> toutes les requêtes doivent être authentifiées par le login form
                 .anyRequest().authenticated()
-
                 /*
                 .and()
                 // formulaire OAuth2 par défaut ? Où est-il dans le projet ?

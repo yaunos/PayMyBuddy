@@ -31,11 +31,13 @@ public class UserAccountController {
 
     @RequestMapping(value = {"/credit "}, method = RequestMethod.GET)
     public String home(Model model) {
-        return "home";
+        //return "home";
+
+        return"redirect:/home";
     }
 
     /*
-    @GetMapping("/home")
+    @GetMapping("/home")user_account
     public String showLoginForm()
     {
         return "redirect:/home.html";
@@ -79,7 +81,7 @@ public class UserAccountController {
         userAccountService.addUserAccount(userAccount);
 
 
-        return null;
+        return"redirect:/home";
     }
 
     @PostMapping("/debit")
@@ -101,7 +103,7 @@ public class UserAccountController {
 
         userAccountService.addUserAccount(userAccount);
 
-
-        return null;
+        return"redirect:/home";
+        //return null;
     }
 }

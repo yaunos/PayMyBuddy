@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <title>Transfer money to you buddy</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="/custom.css">
+    <link rel="stylesheet" type="text/css" href="/css/custom.css">
 </head>
 <body>
 <!-- Menu Home Transfer Profile Contact Log off -->
 <div class="col-md-4">
+    <div class="logo">
+        <img src="/images/logo-paymybuddy.png" width="200"/>
+    </div>
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
 
@@ -18,7 +21,7 @@
                         <a class="nav-link" href="/home.html">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/templates/transfer.html">Transfer</a>
+                        <a class="nav-link" href="/transfer">Transfer</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/profile.html">Profile</a>
@@ -38,7 +41,7 @@
 <!-- Bouton Add connection -->
 <button style="background-color: dodgerblue" onclick="window.location.href = '/contact'; ">Add a connection</button>
 <br>
-<br>
+
 
 <!-- Formulaire transfert argent
 <form method="post" action="/transfer">
@@ -73,7 +76,7 @@
 
     <label for="description">Description:</label><br>
     <input type="text" id="description" name="description">
-    <input type="submit" value="Pay">
+    <input type="submit" value="Pay" class="bouton"><br>
 </form>
 
 <br>

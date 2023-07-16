@@ -1,11 +1,14 @@
 package com.paymybuddy.login.service;
 
 import com.paymybuddy.login.model.Transaction;
+import com.paymybuddy.login.model.UserAccount;
 import com.paymybuddy.login.repository.TransactionRepository;
+import com.paymybuddy.login.repository.UserAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.util.Optional;
 
 @Service
@@ -14,8 +17,12 @@ public class TransactionService {
     @Autowired
     private TransactionRepository transactionRepository;
 
+    @Autowired
+    private UserAccountRepository userAccountRepository;
+
     // Dependency injection
-    @Autowired TransactionService(TransactionRepository transactionRepository) {
+    @Autowired
+    TransactionService(TransactionRepository transactionRepository) {
         this.transactionRepository = transactionRepository;
     }
 
@@ -69,8 +76,6 @@ public class TransactionService {
     }
 
      */
-
-
     @Transactional
     public void addTransaction(Transaction transaction) {
         transactionRepository.save(transaction);
@@ -80,6 +85,28 @@ public class TransactionService {
     /**
      * Send money to your buddy
      */
+
+
+    /**
+     * Check enough money
+     */
+
+    public boolean checkSuficientBalance(String userAccountEmail, BigDecimal amount) {
+        UserAccount userAccount = userAccountRepository.findByEmail(userAccountEmail).orElse(null);
+        if (userAccount != null ) {
+            BigDecimal currentAccountBalance = userAccount.getAccountBalance();
+
+          if (currentAccountBalance.compareTo(amount) == -1) {
+                //
+            return false;
+            } else {
+                return true;
+            }
+
+
+        }
+        return false;
+    }
 
     /*
     @Transactional
@@ -100,5 +127,6 @@ public class TransactionService {
 
     }
      */
+
 }
 

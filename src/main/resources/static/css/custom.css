@@ -1,0 +1,34 @@
+body {
+    padding-left: 30px;
+    padding-top: 30px;
+    padding-right: 30px;
+    padding-bottom: 50px;
+
+}
+
+div {
+    padding-top: 10px;
+    padding-right: 0px;
+    padding-bottom: 0px;
+    padding-left: 100px;
+    justify-self: right;
+
+}
+
+h4 {
+    color : green;
+}
+
+button {
+    border-radius: 10px;
+}
+
+.bouton {
+    border-radius: 10px;
+}
+
+.login {
+    margin-left: auto;
+    margin-right: auto;
+    width:50%;
+}

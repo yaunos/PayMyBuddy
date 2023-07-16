@@ -15,3 +15,8 @@
 - écriture de commentaires judicieux dans le code permettant de bien expliquer la logique
 - ne pas coder les identifiants et mots de passe de la base de données dans le code -> ils doivent être référencés de manière sécurisée sans apparaître dans le code
 - solide couche d'accès aux données
+
+# Livrables :
+- 
+
+
