@@ -97,7 +97,6 @@ public class TransactionService {
             BigDecimal currentAccountBalance = userAccount.getAccountBalance();
 
           if (currentAccountBalance.compareTo(amount) == -1) {
-                //
             return false;
             } else {
                 return true;
