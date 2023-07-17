@@ -97,7 +97,7 @@ public class TransactionController {
         String currentEmail = (String) httpSession.getAttribute("email");
 
         // Vérifier si le solde du compte courant est suffisant pour payer mon buddy
-        if(transactionService.checkSuficientBalance(email, transactionAmount)) {
+        if(transactionService.checkSuficientBalance(currentEmail, transactionAmount)) {
 
             // On récupère les informations du formulaire de paiement
             Transaction transaction = new Transaction();

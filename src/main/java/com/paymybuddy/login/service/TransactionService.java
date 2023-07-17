@@ -11,6 +11,8 @@ import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.Optional;
 
+import static com.paymybuddy.login.constants.Constants.FeeRateForEachTransaction;
+
 @Service
 public class TransactionService {
 
@@ -93,15 +95,20 @@ public class TransactionService {
 
     public boolean checkSuficientBalance(String userAccountEmail, BigDecimal amount) {
         UserAccount userAccount = userAccountRepository.findByEmail(userAccountEmail).orElse(null);
-        if (userAccount != null ) {
-            BigDecimal currentAccountBalance = userAccount.getAccountBalance();
 
-          if (currentAccountBalance.compareTo(amount) == -1) {
+        if (userAccount != null ) {
+
+            // On récupère la valeur de la somme sur le compte courant payMyBuddy
+            BigDecimal currentAccountBalance = userAccount.getAccountBalance();
+            // On récupère le montant de la transaction souhaitée augmentée de la valeur des frais
+            BigDecimal amountWithFeeValue = amount.add(amount.multiply(FeeRateForEachTransaction));
+
+            // On compare les deux valeurs pour avoir assez d'argent sur le compte pour faire la transaction
+            if (currentAccountBalance.compareTo(amountWithFeeValue) == -1) {
             return false;
             } else {
                 return true;
             }
-
 
         }
         return false;
